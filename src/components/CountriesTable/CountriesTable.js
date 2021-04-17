@@ -77,12 +77,13 @@ const CountriesTable = ({ countries }) => {
   return (
     <div>
       <div className={styles.heading}>
+        <div className={styles.heading_flag}></div>
         <button
           className={styles.heading_name}
           onClick={() => setValueAndDirection("name")}
         >
           <div>Name</div>
-          <SortArrow />
+          {value === "name" && <SortArrow direction={direction} />}
         </button>
 
         <button
@@ -90,17 +91,42 @@ const CountriesTable = ({ countries }) => {
           onClick={() => setValueAndDirection("population")}
         >
           <div>Population</div>
-          <SortArrow direction={direction} />
+          {value === "population" && <SortArrow direction={direction} />}
+        </button>
+
+        <button
+          className={styles.heading_area}
+          onClick={() => setValueAndDirection("area")}
+        >
+          <div>
+            Area (km<sup style={{ fontSize: "0.5rem" }}>2</sup>)
+          </div>
+          {value === "area" && <SortArrow direction={direction} />}
+        </button>
+
+        <button
+          className={styles.heading_gini}
+          onClick={() => setValueAndDirection("gini")}
+        >
+          <div>Gini</div>
+          {value === "gini" && <SortArrow direction={direction} />}
         </button>
       </div>
 
       {orderedCountries.map((country) => (
         <Link href={`/country/${country.alpha3Code}`}>
           <div className={styles.row}>
+            <div className={styles.flag}>
+              <img src={country.flag} alt={country.name} />
+            </div>
             <div className={styles.name}>{country.name}</div>
             <div className={styles.population}>
-              {numberWithCommas(country.population)}
+              {numberWithCommas(country.population) || 0}
             </div>
+            <div className={styles.area}>
+              {country.area !== null ? numberWithCommas(country?.area) : 0}
+            </div>
+            <div className={styles.gini}>{country.gini || 0} %</div>
           </div>
         </Link>
       ))}

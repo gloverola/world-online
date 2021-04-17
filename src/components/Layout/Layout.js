@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styles from "./Layout.module.css";
+import Link from "next/link";
 
 const Layout = ({ children, title = "World Online" }) => {
   return (
@@ -9,7 +10,9 @@ const Layout = ({ children, title = "World Online" }) => {
       </Head>
 
       <header className={styles.header}>
-        <span>LOGO.</span>
+        <Link href='/'>
+          <span className={styles.logo}>LOGO.</span>
+        </Link>
       </header>
 
       <main className={styles.main}>{children}</main>
