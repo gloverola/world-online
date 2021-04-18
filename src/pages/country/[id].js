@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import styles from "./country.module.css";
+import { numberWithCommas } from "../../utils/utils";
 
+/**
+ * Fetch all Countries
+ * @param {string} id
+ * @returns
+ */
 const getCountry = async (id) => {
   const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
 
@@ -36,13 +42,16 @@ const Country = ({ country }) => {
             <div className={styles.overview_numbers}>
               <div className={styles.overview_population}>
                 <div className={styles.overview_value}>
-                  {country.population}
+                  {country.population !== null
+                    ? numberWithCommas(country.population)
+                    : 0}
                 </div>
                 <div className={styles.overview_label}>Population</div>
               </div>
               <div className={styles.overview_area}>
                 <div className={styles.overview_value}>
-                  {country.area} SQR KM
+                  {country.area !== null ? numberWithCommas(country?.area) : 0}{" "}
+                  km<sup className={styles.sup}>2</sup>
                 </div>
                 <div className={styles.overview_label}>Area</div>
               </div>
@@ -118,7 +127,20 @@ const Country = ({ country }) => {
 
 export default Country;
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticPaths = async () => {
+  const res = await fetch("https://restcountries.eu/rest/v2/all");
+  const countries = await res.json();
+
+  const paths = countries.map((country) => ({
+    params: { id: country.alpha3Code },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }) => {
   const country = await getCountry(params.id);
 
   return {

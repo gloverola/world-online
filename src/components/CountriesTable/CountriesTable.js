@@ -5,6 +5,7 @@ import {
   KeyboardArrowUpRounded,
 } from "@material-ui/icons";
 import styles from "./CountriesTable.module.css";
+import { numberWithCommas } from "../../utils/utils";
 
 /**
  * Order countries
@@ -52,10 +53,6 @@ const SortArrow = ({ direction }) => {
 const CountriesTable = ({ countries }) => {
   const [direction, setDirection] = useState();
   const [value, setValue] = useState();
-
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
 
   const orderedCountries = orderBy(countries, value, direction);
 

@@ -101,3 +101,7 @@
     grid-column: 5 / span 8;
   }
 }
+
+.sup {
+  font-size: 0.5rem;
+}

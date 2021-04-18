@@ -37,7 +37,7 @@ const Layout = ({ children, title = "World Online" }) => {
 
       <header className={styles.header}>
         <Link href='/'>
-          <span className={styles.logo}>LOGO.</span>
+          <span className={styles.logo}>worldOnline.</span>
         </Link>
 
         <button className={styles.themeSwitcher} onClick={switchTheme}>
