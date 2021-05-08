@@ -1,3 +1,3 @@
 ## World Online [Visit](https://world-online.vercel.app/)
 
-# Get Country info in one place.
+# political, economic, financial, and social data for more than 140 countries
